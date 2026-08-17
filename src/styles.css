@@ -153,3 +153,37 @@
     linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px);
   background-size: 12.5% 12.5%;
 }
+
+/* Brand texture: the round pegs of a real bead board */
+@utility beadboard {
+  background-image: radial-gradient(
+    color-mix(in oklab, currentColor 22%, transparent) 1.6px,
+    transparent 1.7px
+  );
+  background-size: 12px 12px;
+}
+
+@utility press {
+  transition:
+    transform 180ms cubic-bezier(0.34, 1.4, 0.64, 1),
+    box-shadow 180ms ease;
+  &:active {
+    transform: scale(0.965);
+  }
+}
+
+@utility rise {
+  animation: rise-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
