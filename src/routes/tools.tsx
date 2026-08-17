@@ -1,5 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Sparkles, Boxes, Calculator, BookImage, ChevronRight, Ruler, Palette } from "lucide-react";
+import {
+  Sparkles,
+  Boxes,
+  Calculator,
+  BookImage,
+  ChevronRight,
+  Ruler,
+  Palette,
+  ArrowRight,
+} from "lucide-react";
+import cat from "@/assets/art-cat.jpg";
+import dino from "@/assets/art-dino.jpg";
 
 export const Route = createFileRoute("/tools")({
   head: () => ({
@@ -36,17 +47,47 @@ function Tools() {
 
       <Link
         to="/convert"
-        className="relative mt-5 block overflow-hidden rounded-4xl bg-primary p-5 text-primary-foreground shadow-glow"
+        className="rise press relative mt-5 block overflow-hidden rounded-4xl bg-primary p-5 text-primary-foreground shadow-glow"
       >
-        <span className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-primary-foreground/15" />
-        <span className="absolute -bottom-14 right-10 h-32 w-32 rounded-full bg-primary-foreground/10" />
-        <span className="relative grid h-12 w-12 place-items-center rounded-3xl bg-primary-foreground/20">
-          <Sparkles className="h-6 w-6" strokeWidth={2.4} />
+        <span
+          className="beadboard absolute inset-0 text-primary-foreground opacity-30"
+          aria-hidden="true"
+        />
+        <span className="relative flex items-center gap-3">
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-3xl bg-primary-foreground/20">
+            <Sparkles className="h-5 w-5" strokeWidth={2.4} />
+          </span>
+          <span className="min-w-0">
+            <span className="block truncate text-xl font-extrabold">照片转图纸</span>
+            <span className="block truncate text-xs opacity-90">AI 像素化 · 自动匹配色号</span>
+          </span>
         </span>
-        <h2 className="relative mt-4 text-xl font-extrabold">照片转图纸</h2>
-        <p className="relative mt-1 max-w-[15rem] text-sm opacity-90">
-          上传照片，AI 自动像素化并匹配最接近的豆子色号
-        </p>
+
+        <span className="relative mt-4 flex items-center gap-3">
+          <span className="min-w-0 flex-1 overflow-hidden rounded-3xl border border-primary-foreground/30 bg-primary-foreground/15">
+            <img
+              src={cat}
+              alt="原始照片示例"
+              loading="lazy"
+              className="aspect-square w-full object-cover"
+            />
+            <span className="block py-1.5 text-center text-[10px] font-bold">原图</span>
+          </span>
+          <ArrowRight className="h-5 w-5 shrink-0 opacity-80" />
+          <span className="min-w-0 flex-1 overflow-hidden rounded-3xl border border-primary-foreground/30 bg-primary-foreground/15">
+            <span className="pegboard block">
+              <img
+                src={dino}
+                alt="生成的拼豆图纸示例"
+                loading="lazy"
+                className="aspect-square w-full object-cover mix-blend-multiply"
+                style={{ imageRendering: "pixelated" }}
+              />
+            </span>
+            <span className="block py-1.5 text-center text-[10px] font-bold">图纸</span>
+          </span>
+        </span>
+
         <span className="relative mt-4 inline-flex items-center gap-1 rounded-full bg-primary-foreground/20 px-3 py-1.5 text-[13px] font-semibold">
           开始转换 <ChevronRight className="h-4 w-4" />
         </span>
@@ -54,8 +95,12 @@ function Tools() {
 
       <h2 className="mt-7 text-base font-bold">常用工具</h2>
       <div className="mt-3 grid grid-cols-2 gap-3">
-        {tools.map((t) => (
-          <button key={t.title} className="card-soft p-4 text-left">
+        {tools.map((t, i) => (
+          <button
+            key={t.title}
+            className="rise card-soft press p-4 text-left"
+            style={{ animationDelay: `${60 + i * 60}ms` }}
+          >
             <span className={`grid h-11 w-11 place-items-center rounded-2xl ${t.bg} ${t.fg}`}>
               <t.icon className="h-5 w-5" strokeWidth={2.2} />
             </span>
@@ -68,7 +113,7 @@ function Tools() {
       <h2 className="mt-7 text-base font-bold">小帮手</h2>
       <div className="card-soft mt-3 divide-y divide-border/70">
         {shortcuts.map((s) => (
-          <button key={s.title} className="flex w-full items-center gap-3 p-4 text-left">
+          <button key={s.title} className="press flex w-full items-center gap-3 p-4 text-left">
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-violet-soft text-violet-ink">
               <s.icon className="h-5 w-5" strokeWidth={2.2} />
             </span>
