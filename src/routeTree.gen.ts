@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConvertRouteImport } from './routes/convert'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ToolsRouteImport } from './routes/tools'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConvertRoute = ConvertRouteImport.update({
+  id: '/convert',
+  path: '/convert',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsRoute = ToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/convert': typeof ConvertRoute
+  '/profile': typeof ProfileRoute
+  '/tools': typeof ToolsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/convert': typeof ConvertRoute
+  '/profile': typeof ProfileRoute
+  '/tools': typeof ToolsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/convert': typeof ConvertRoute
+  '/profile': typeof ProfileRoute
+  '/tools': typeof ToolsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/convert' | '/profile' | '/tools'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/convert' | '/profile' | '/tools'
+  id: '__root__' | '/' | '/convert' | '/profile' | '/tools'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConvertRoute: typeof ConvertRoute
+  ProfileRoute: typeof ProfileRoute
+  ToolsRoute: typeof ToolsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/convert': {
+      id: '/convert'
+      path: '/convert'
+      fullPath: '/convert'
+      preLoaderRoute: typeof ConvertRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools': {
+      id: '/tools'
+      path: '/tools'
+      fullPath: '/tools'
+      preLoaderRoute: typeof ToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConvertRoute: ConvertRoute,
+  ProfileRoute: ProfileRoute,
+  ToolsRoute: ToolsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
