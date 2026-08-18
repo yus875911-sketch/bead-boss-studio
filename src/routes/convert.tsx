@@ -25,9 +25,13 @@ const toggles = [
   { key: "dither", title: "抖动处理", desc: "过渡更自然，色号更多", icon: Grid2x2Check },
 ] as const;
 
+const sizes = ["29 × 29", "48 × 48", "64 × 64", "100 × 100"];
+
 function Convert() {
   const [on, setOn] = useState<Record<string, boolean>>({ ai: true, bg: false, dither: false });
+  const [size, setSize] = useState(sizes[2]);
   const total = palette.reduce((s, p) => s + p.count, 0);
+
 
   return (
     <div className="pb-56">
