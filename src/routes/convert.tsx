@@ -141,7 +141,7 @@ function Convert() {
 
         <div className="mt-4 grid grid-cols-3 gap-3">
           {[
-            { k: "尺寸", v: "64 × 64" },
+            { k: "尺寸", v: size },
             { k: "色号", v: `${palette.length} 种` },
             { k: "总豆数", v: `${total}` },
           ].map((s) => (
