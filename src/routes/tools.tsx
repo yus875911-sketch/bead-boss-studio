@@ -77,13 +77,14 @@ function Tools() {
           <span className="min-w-0 flex-1 overflow-hidden rounded-3xl border border-primary-foreground/30 bg-primary-foreground/15">
             <span className="pegboard block">
               <img
-                src={dino}
+                src={cat}
                 alt="生成的拼豆图纸示例"
                 loading="lazy"
-                className="aspect-square w-full object-cover mix-blend-multiply"
+                className="aspect-square w-full object-cover mix-blend-multiply saturate-150"
                 style={{ imageRendering: "pixelated" }}
               />
             </span>
+
             <span className="block py-1.5 text-center text-[10px] font-bold">图纸</span>
           </span>
         </span>
