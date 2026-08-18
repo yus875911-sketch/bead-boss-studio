@@ -25,9 +25,13 @@ const toggles = [
   { key: "dither", title: "抖动处理", desc: "过渡更自然，色号更多", icon: Grid2x2Check },
 ] as const;
 
+const sizes = ["29 × 29", "48 × 48", "64 × 64", "100 × 100"];
+
 function Convert() {
   const [on, setOn] = useState<Record<string, boolean>>({ ai: true, bg: false, dither: false });
+  const [size, setSize] = useState(sizes[2]);
   const total = palette.reduce((s, p) => s + p.count, 0);
+
 
   return (
     <div className="pb-56">
@@ -35,14 +39,15 @@ function Convert() {
         <Link
           to="/tools"
           aria-label="返回"
-          className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-card shadow-soft"
+          className="press grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-card shadow-soft"
         >
           <ArrowLeft className="h-[18px] w-[18px]" />
         </Link>
         <h1 className="min-w-0 truncate text-center text-[17px] font-extrabold">照片转图纸</h1>
-        <button className="shrink-0 rounded-2xl bg-primary px-4 py-2.5 text-[13px] font-bold text-primary-foreground shadow-glow">
+        <button className="press shrink-0 rounded-2xl bg-primary px-4 py-2.5 text-[13px] font-bold text-primary-foreground shadow-glow">
           保存
         </button>
+
       </header>
 
       <main className="px-4">
@@ -57,7 +62,7 @@ function Convert() {
               </div>
             </div>
             <div className="flex">
-              <div className="flex w-6 shrink-0 flex-col justify-between py-1 pl-1 text-[9px] text-muted-foreground">
+              <div className="flex w-6 shrink-0 flex-col justify-between pb-2 pl-1 pt-1 text-[9px] text-muted-foreground">
                 {[0, 8, 16, 24, 32, 40, 48, 56, 64].map((n) => (
                   <span key={n}>{n}</span>
                 ))}
@@ -74,15 +79,33 @@ function Convert() {
             </div>
           </div>
 
+          <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
+            {sizes.map((s) => (
+              <button
+                key={s}
+                onClick={() => setSize(s)}
+                className={
+                  "press shrink-0 rounded-full px-3 py-2 text-[12px] font-semibold transition-all " +
+                  (size === s
+                    ? "bg-ink text-ink-foreground"
+                    : "bg-secondary text-muted-foreground")
+                }
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+
           <div className="mt-3 grid grid-cols-2 gap-2">
-            <button className="flex items-center justify-center gap-2 rounded-2xl bg-secondary px-3 py-3 text-[13px] font-semibold text-secondary-foreground">
+            <button className="press flex items-center justify-center gap-2 rounded-2xl bg-secondary px-3 py-3 text-[13px] font-semibold text-secondary-foreground">
               <ImagePlus className="h-4 w-4" /> 重新上传
             </button>
-            <button className="flex items-center justify-center gap-2 rounded-2xl bg-ink px-3 py-3 text-[13px] font-semibold text-ink-foreground">
+            <button className="press flex items-center justify-center gap-2 rounded-2xl bg-ink px-3 py-3 text-[13px] font-semibold text-ink-foreground">
               <Download className="h-4 w-4" /> 导出图纸
             </button>
           </div>
         </div>
+
 
         <div className="card-soft mt-4 divide-y divide-border/70">
           {toggles.map((t) => (
@@ -118,7 +141,7 @@ function Convert() {
 
         <div className="mt-4 grid grid-cols-3 gap-3">
           {[
-            { k: "尺寸", v: "64 × 64" },
+            { k: "尺寸", v: size },
             { k: "色号", v: `${palette.length} 种` },
             { k: "总豆数", v: `${total}` },
           ].map((s) => (
